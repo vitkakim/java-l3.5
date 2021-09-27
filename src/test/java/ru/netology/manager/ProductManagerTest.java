@@ -11,22 +11,14 @@ import ru.netology.repository.ProductRepository;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ProductManagerTest {
-    Product book1 = new Book("Harry Potter", "J.K. Rowling");
-    Product book2 = new Book("The Little Prince", "Antoine de Saint-Exupery");
-    Product book3 = new Book("Harry Potter", "J.K. Rowling");
-    Product book4 = new Book("The Little Prince", "Antoine de Saint-Exupery");
+    Product book1 = new Book(1, "Harry Potter and the Chamber of Secrets", 350, "J.K. Rowling");
+    Product book2 = new Book(2, "The Little Prince", 350, "Antoine de Saint-Exupery");
 
-    Product smartPhone1 = new Smartphone("Samsung A52", "Samsung");
-    Product smartPhone2 = new Smartphone("Iphone X", "Apple");
-    Product smartPhone3 = new Smartphone("Samsung A52", "Samsung");
-    Product smartPhone4 = new Smartphone("Iphone X", "Apple");
+    Product smartPhone1 = new Smartphone(3, "Samsung A52", 350, "Samsung");
+    Product smartPhone2 = new Smartphone(4, "Iphone X", 350, "Apple");
 
-
-    Product product1 = new Product(1, "Harry Potter", 350);
-    Product product2 = new Product(2, "Iphone X", 70000);
-    Product product3 = new Product(3, "Harry Potter", 350);
-    Product product4 = new Product(4, "Iphone X", 70000);
-
+    Product product1 = new Product(5, "Harry Potter and the Half-Blood Prince", 350);
+    Product product2 = new Product(6, "Iphone SE", 350);
 
     ProductRepository repository = new ProductRepository();
     ProductManager manager = new ProductManager(repository);
@@ -35,44 +27,66 @@ class ProductManagerTest {
     public void setUp() {
         manager.add(book1);
         manager.add(book2);
-        manager.add(book3);
-        manager.add(book4);
-
         manager.add(smartPhone1);
         manager.add(smartPhone2);
-        manager.add(smartPhone3);
-        manager.add(smartPhone4);
-
         manager.add(product1);
         manager.add(product2);
-        manager.add(product3);
-        manager.add(product4);
     }
 
     @Test
     void shouldAddProduct() {
         Product[] actual = repository.findAll();
-        Product[] expected = new Product[]{
-                book1, book2, book3, book4,
-                smartPhone1, smartPhone2, smartPhone3, smartPhone4,
-                product1, product2, product3, product4};
-
+        Product[] expected = new Product[]{book1, book2, smartPhone1, smartPhone2, product1, product2};
         assertArrayEquals(expected, actual);
     }
 
     @Test
-    void shouldSearchByText() {
-        assertArrayEquals(new Product[]{smartPhone2, smartPhone4}, manager.searchBy("Iphone X"));
-        assertArrayEquals(new Product[]{smartPhone2, smartPhone4}, manager.searchBy("Apple"));
+    void shouldSearchByNameSmartphone() {
+        Product[] actual = manager.searchBy("Iphone");
+        Product[] expected = new Product[]{smartPhone2, product2};
+        assertArrayEquals(expected, actual);
+    }
 
-        assertArrayEquals(new Product[]{book1, book3}, manager.searchBy("Harry Potter"));
-        assertArrayEquals(new Product[]{book2, book4}, manager.searchBy("Antoine de Saint-Exupery"));
+    @Test
+    void shouldSearchByDeveloper() {
+        Product[] actual = manager.searchBy("Samsung");
+        Product[] expected = new Product[]{smartPhone1};
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    void shouldSearchByNameBook() {
+        Product[] actual = manager.searchBy("Harry Potter");
+        Product[] expected = new Product[]{book1, product1};
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    void shouldSearchByAuthor() {
+        Product[] actual = manager.searchBy("Antoine");
+        Product[] expected = new Product[]{book2};
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    void shouldSearchByNotExistText() {
+        Product[] actual = manager.searchBy("Достоевский");
+        Product[] expected = new Product[] {};
+        assertArrayEquals(expected, actual);
     }
 
     @Test
     void shouldSearchById() {
-        assertEquals(product3, repository.findById(3));
-        assertEquals(null, repository.findById(7));
+        Product actual = repository.findById(2);
+        Product expected = book2;
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void shouldSearchByNotExistId() {
+        Product actual = repository.findById(10);
+        Product expected = null;
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -80,9 +94,9 @@ class ProductManagerTest {
         repository.removeById(2);
         Product[] actual = repository.findAll();
         Product[] expected = new Product[]{
-                book1, book2, book3, book4,
-                smartPhone1, smartPhone2, smartPhone3, smartPhone4,
-                product1, product3, product4};
+                book1,
+                smartPhone1, smartPhone2,
+                product1, product2};
 
         assertArrayEquals(expected, actual);
     }
@@ -93,9 +107,9 @@ class ProductManagerTest {
         repository.removeById(6);
         Product[] actual = repository.findAll();
         Product[] expected = new Product[]{
-                book1, book2, book3, book4,
-                smartPhone1, smartPhone2, smartPhone3, smartPhone4,
-                product1, product2, product3, product4};
+                book1, book2,
+                smartPhone1, smartPhone2,
+                product1, product2};
 
         assertArrayEquals(expected, actual);
     }
