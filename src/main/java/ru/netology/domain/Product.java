@@ -5,6 +5,7 @@ public class Product {
     private String name;
     private int price;
 
+
     public Product() {
     }
 
@@ -24,5 +25,13 @@ public class Product {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+
+    public boolean matches(String search) {
+        if (name.contains(search)) {
+            return true;
+        }
+        return false;
     }
 }

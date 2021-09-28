@@ -14,7 +14,7 @@ class ProductManagerTest {
     Product book1 = new Book(1, "Harry Potter and the Chamber of Secrets", 350, "J.K. Rowling");
     Product book2 = new Book(2, "The Little Prince", 350, "Antoine de Saint-Exupery");
 
-    Product smartPhone1 = new Smartphone(3, "Samsung A52", 350, "Samsung");
+    Product smartPhone1 = new Smartphone(3, "Redmi 9", 350, "Xiaomi");
     Product smartPhone2 = new Smartphone(4, "Iphone X", 350, "Apple");
 
     Product product1 = new Product(5, "Harry Potter and the Half-Blood Prince", 350);
@@ -49,7 +49,7 @@ class ProductManagerTest {
 
     @Test
     void shouldSearchByDeveloper() {
-        Product[] actual = manager.searchBy("Samsung");
+        Product[] actual = manager.searchBy("Xiaomi");
         Product[] expected = new Product[]{smartPhone1};
         assertArrayEquals(expected, actual);
     }
@@ -69,7 +69,7 @@ class ProductManagerTest {
     }
 
     @Test
-    void shouldSearchByNotExistText() {
+    void shouldSearchByNotExistAuthor() {
         Product[] actual = manager.searchBy("Достоевский");
         Product[] expected = new Product[] {};
         assertArrayEquals(expected, actual);
@@ -104,7 +104,7 @@ class ProductManagerTest {
     @Test
     @Disabled
     void shouldRemoveByIdNotExist() {
-        repository.removeById(6);
+        repository.removeById(10);
         Product[] actual = repository.findAll();
         Product[] expected = new Product[]{
                 book1, book2,

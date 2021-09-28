@@ -4,6 +4,7 @@ package ru.netology.domain;
 public class Smartphone extends Product {
     private String developer;
 
+
     public Smartphone() {
         super();
     }
@@ -20,5 +21,11 @@ public class Smartphone extends Product {
 
     public void setDeveloper(String developer) {
         this.developer = developer;
+    }
+
+
+    @Override
+    public boolean matches(String search) {
+        return super.matches(search) || getDeveloper().contains(search);
     }
 }
