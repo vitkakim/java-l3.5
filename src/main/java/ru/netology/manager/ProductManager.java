@@ -50,10 +50,6 @@ public class ProductManager {
             }
             return false;
         }
-        Product product = (Product) item;
-        if (product.getName().contains(search)) {
-            return true;
-        }
         return false;
     }
 }

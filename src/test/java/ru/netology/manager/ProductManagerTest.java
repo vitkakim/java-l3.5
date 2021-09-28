@@ -43,7 +43,7 @@ class ProductManagerTest {
     @Test
     void shouldSearchByNameSmartphone() {
         Product[] actual = manager.searchBy("Iphone");
-        Product[] expected = new Product[]{smartPhone2, product2};
+        Product[] expected = new Product[]{smartPhone2};
         assertArrayEquals(expected, actual);
     }
 
@@ -57,7 +57,7 @@ class ProductManagerTest {
     @Test
     void shouldSearchByNameBook() {
         Product[] actual = manager.searchBy("Harry Potter");
-        Product[] expected = new Product[]{book1, product1};
+        Product[] expected = new Product[]{book1};
         assertArrayEquals(expected, actual);
     }
 
@@ -104,7 +104,7 @@ class ProductManagerTest {
     @Test
     @Disabled
     void shouldRemoveByIdNotExist() {
-        repository.removeById(6);
+        repository.removeById(10);
         Product[] actual = repository.findAll();
         Product[] expected = new Product[]{
                 book1, book2,
