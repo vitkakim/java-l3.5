@@ -10,25 +10,25 @@ class SmartphoneTest {
     @Test
     void shouldFindByName() {
         boolean actual = smartPhone.matches("Redmi");
-        assertEquals(true, actual);
+        assertTrue(actual);
     }
 
     @Test
     void shouldFindByWrongName() {
         boolean actual = smartPhone.matches("Iphone");
-        assertEquals(false, actual);
+        assertFalse(actual);
     }
 
     @Test
     void shouldFindByDeveloper() {
         boolean actual = smartPhone.matches("Xiaomi");
-        assertEquals(true, actual);
+        assertTrue(actual);
     }
 
     @Test
     void shouldFindByWrongDeveloper() {
         boolean actual = smartPhone.matches("Apple");
-        assertEquals(false, actual);
+        assertFalse(actual);
     }
 
 

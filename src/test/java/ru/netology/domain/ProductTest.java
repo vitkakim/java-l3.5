@@ -2,7 +2,7 @@ package ru.netology.domain;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ProductTest {
     Product product = new Product();
@@ -11,13 +11,13 @@ class ProductTest {
     void shouldFindByName() {
         product.setName("Iphone SE");
         boolean actual = product.matches("Iphone");
-        assertEquals(true, actual);
+        assertTrue(actual);
     }
 
     @Test
     void shouldFindByWrongName() {
         product.setName("Samsung");
         boolean actual = product.matches("Iphone");
-        assertEquals(false, actual);
+        assertFalse(actual);
     }
 }

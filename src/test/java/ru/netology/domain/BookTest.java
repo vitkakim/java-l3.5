@@ -10,25 +10,25 @@ class BookTest {
     @Test
     void shouldFindByName() {
         boolean actual = book.matches("Harry");
-        assertEquals(true, actual);
+        assertTrue(actual);
     }
 
     @Test
     void shouldFindByWrongName() {
         boolean actual = book.matches("Prince");
-        assertEquals(false, actual);
+        assertFalse(actual);
     }
 
     @Test
     void shouldFindByAuthor() {
         boolean actual = book.matches("Rowling");
-        assertEquals(true, actual);
+        assertTrue(actual);
     }
 
     @Test
     void shouldFindByWrongAuthor() {
         boolean actual = book.matches("Antoine");
-        assertEquals(false, actual);
+        assertFalse(actual);
     }
 
 }
